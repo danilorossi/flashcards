@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
-import { Container, Header, Body, Text } from 'native-base';
+import { Container, Text } from 'native-base';
 
 
-export default function DeckDetails () {
-  return (
-    <Container>
-      <Text>Details</Text>
 
-    </Container>
-  )
+export default class DeckDetails extends Component {
+
+  static navigationOptions = ({ navigation }) => ({
+    title: `Deck "${navigation.state.params.item.name}"`
+  });
+
+  render() {
+    const { navigation } = this.props;
+    return (
+      <Container>
+        <Text>Details</Text>
+      </Container>
+    )
+  }
+
 }
