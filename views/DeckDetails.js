@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Container, Header, Body, Text } from 'native-base';
+
 
 export default function DeckDetails () {
   return (
-    <Text>DECK DETAILS</Text>
+    <Container>
+      <Text>Details</Text>
+
+    </Container>
   )
 }
