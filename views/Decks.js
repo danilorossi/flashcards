@@ -38,14 +38,14 @@ export default function Decks ({ navigation, screenProps }) {
           data={screenProps.decks}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
-            <Button block success onPress={() => navigation.navigate('DeckDetails', { item })}>
-              <Text>{ item.name }</Text>
+            <Button full success onPress={() => navigation.navigate('DeckDetails', { item })}>
+              <Text>{ item.name } ({ item.cards.length })</Text>
             </Button>
           )}
         />
 
       </Content>
-      
+
     </Container>
   )
 

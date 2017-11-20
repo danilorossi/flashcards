@@ -6,7 +6,7 @@ import { Constants } from 'expo';
 import { Provider } from 'react-redux';
 
 import configureStore from './store/configureStore';
-import initialState from './reducers/initialState';
+import initialState from './store/initialState';
 
 import CreateDeck from './views/CreateDeck';
 import DeckDetails from './views/DeckDetails';
@@ -14,6 +14,14 @@ import Decks from './views/Decks';
 
 // Init redux store with initial state
 const store = configureStore(initialState);
+
+// -------- create test data
+store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 1' });
+store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 2' });
+store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 3' });
+store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 4' });
+store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 5' });
+// --------------------------------
 
 const HomeTabs = TabNavigator({
   Decks: {
