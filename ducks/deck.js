@@ -15,7 +15,8 @@ export default function reducer(state = [], action = {}) {
         cards: []
       });
 
-    default: return state;
+    default:
+      return state;
   }
 }
 

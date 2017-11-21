@@ -63,13 +63,11 @@ function FlashcardsStatusBar ({backgroundColor, ...props}) {
 
 export default class App extends React.Component {
   render() {
-    const decks = store.getState().decks;
-
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>
           <FlashcardsStatusBar backgroundColor="grey" barStyle="light-content" />
-          <MainNavigator screenProps={{ decks }}/>
+          <MainNavigator />
         </View>
       </Provider>
     );

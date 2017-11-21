@@ -1,52 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
 import { Container, Content, Button, Text } from 'native-base';
 
-export default function Decks ({ navigation, screenProps }) {
+class Decks extends React.Component {
+// export default function Decks ({ navigation }) {
 
-  // function CardItem(deckData) {
-  //   return (
-  //     <Card>
-  //       <CardItem>
-  //         <Body>
-  //           <Text>{ deckData.name }</Text>
-  //         </Body>
-  //       </CardItem>
-  //     </Card>
-  //   );
-  // }
+  render() {
 
-  return (
-    // <View>
-    //   <Text>HOME PAGE</Text>
-    //   <TouchableOpacity onPress={() => navigation.navigate('DeckDetails')}>
-    //     <Text>Press here for the Dashboard</Text>
-    //   </TouchableOpacity>
-    // </View>
+    const {
+      navigation,
+      decks
+    } = this.props;
 
+    return (
 
-    // renderItem={({item}) => (
-    //   <Button rounded success onPress={() => navigation.navigate('DeckDetails', { item })}>
-    //     <Text>{ item.name }</Text>
-    //   </Button>
-    // )}
-    <Container>
+      <Container>
 
-      <Content>
+        <Content>
 
-        <FlatList
-          data={screenProps.decks}
-          keyExtractor={item => item.id}
-          renderItem={({item}) => (
-            <Button full success onPress={() => navigation.navigate('DeckDetails', { item })}>
-              <Text>{ item.name } ({ item.cards.length })</Text>
-            </Button>
-          )}
-        />
+          {decks &&
+            <FlatList
+              data={decks}
+              keyExtractor={item => item.id}
+              renderItem={({item}) => (
+                <Button full success onPress={() => navigation.navigate('DeckDetails', { item })}>
+                  <Text>{ item.name } ({ item.cards.length })</Text>
+                </Button>
+              )}
+            />
+          }
 
-      </Content>
+        </Content>
 
-    </Container>
-  )
-
+      </Container>
+    )
+  }
 }
+
+
+function mapStateToProps (state) {
+  return {
+    decks: state.decks
+  }
+}
+
+export default connect (mapStateToProps)(Decks);
