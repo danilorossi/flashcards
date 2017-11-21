@@ -7,7 +7,7 @@ import { Button, Container, Text } from 'native-base';
 class DeckDetails extends React.Component {
 
   static navigationOptions = ({ navigation }) => ({
-    title: `Deck "${navigation.state.params.item.name}"`
+    title: navigation.state.params.item.name
   });
 
   render() {

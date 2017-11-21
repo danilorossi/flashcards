@@ -43,7 +43,7 @@ class Quiz extends Component {
       question: '',
       answer: ''
     });
-    
+
     this.props.navigation.goBack();
   }
 
@@ -57,13 +57,10 @@ class Quiz extends Component {
 
     return (
       <Container>
-        <Header>
-          <Body>
-            <Title>Add Card</Title>
-          </Body>
-        </Header>
         <Content>
-
+          <Text>
+            Create a new question
+          </Text>
           <Form>
             <Item floatingLabel>
               <Label>Question</Label>
