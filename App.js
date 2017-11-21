@@ -11,6 +11,8 @@ import initialState from './store/initialState';
 import CreateDeck from './views/CreateDeck';
 import DeckDetails from './views/DeckDetails';
 import Decks from './views/Decks';
+import AddCard from './views/AddCard';
+import Quiz from './views/Quiz';
 
 // Init redux store with initial state
 const store = configureStore(initialState);
@@ -50,6 +52,12 @@ const MainNavigator = StackNavigator({
   },
   DeckDetails: {
     screen: DeckDetails
+  },
+  AddCard: {
+    screen: AddCard
+  },
+  Quiz: {
+    screen: Quiz
   }
 });
 

@@ -39,6 +39,9 @@ class CreateDeck extends React.Component {
           </Body>
         </Header>
         <Content>
+          <Text>
+            What is the title of your new deck?
+          </Text>
           <Form>
             <Item floatingLabel>
               <Label>Name</Label>
