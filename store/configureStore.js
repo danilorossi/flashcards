@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { autoRehydrate } from 'redux-persist';
+
 import decks from '../ducks/deck';
 import quiz from '../ducks/quiz';
 
@@ -10,16 +12,16 @@ export default function configureStore(initialState = {}) {
     quiz
   });
 
-  // const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
   // Return createStore utility
   return createStore(
       rootReducer,
       initialState,
-      // composeEnhancers(
-      //   applyMiddleware(
-      //   )
-      // )
+      composeEnhancers(
+        // applyMiddleware()
+        autoRehydrate()
+      )
 
   );
 }

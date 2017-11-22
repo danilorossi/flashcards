@@ -12,9 +12,20 @@ class Quiz extends React.Component {
 
   constructor(props) {
     super(props);
+    this.goHome = this.goHome.bind(this);
     this.startQuiz = this.startQuiz.bind(this);
   }
 
+  goHome() {
+    const resetAction = NavigationActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home'}),
+      ]
+    });
+
+    this.props.navigation.dispatch(resetAction)
+  }
   startQuiz(deck) {
     this.props.onStartQuiz(deck);
 
@@ -69,10 +80,10 @@ class Quiz extends React.Component {
         {finished &&
           <Content>
             <Text>Finished</Text>
-            <Text>{(correctAnswers/totalCards)*100} ({correctAnswers}/{incorrectAnswers})</Text>
+            <Text>{((correctAnswers/totalCards)*100).toFixed(2)}% ({correctAnswers}/{incorrectAnswers})</Text>
 
             <Button rounded light
-              onPress={() => navigation.navigate('Home')}>
+              onPress={() => this.goHome()}>
               <Text>Home</Text>
             </Button>
 

@@ -4,7 +4,7 @@ const START_QUIZ = 'flashcards/quiz/START_QUIZ';
 const SUBMIT_ANSWER = 'flashcards/quiz/SUBMIT_ANSWER';
 
 // Reducer
-export default function quiz(state = initialState.quiz, action = {}) {
+export default function reducer(state = initialState.quiz, action = {}) {
 
   switch (action.type) {
 

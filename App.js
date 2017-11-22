@@ -5,6 +5,9 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Constants } from 'expo';
 import { Provider } from 'react-redux';
 
+import { persistStore } from 'redux-persist';
+import { AsyncStorage } from 'react-native';
+
 import configureStore from './store/configureStore';
 import initialState from './store/initialState';
 
@@ -18,11 +21,11 @@ import Quiz from './views/Quiz';
 const store = configureStore(initialState);
 
 // -------- create test data
-store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 1' });
-store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 2' });
-store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 3' });
-store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 4' });
-store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 5' });
+// store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 1' });
+// store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 2' });
+// store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 3' });
+// store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 4' });
+// store.dispatch({ type: 'flashcards/decks/CREATE_DECK', name: 'Deck 5' });
 // --------------------------------
 
 const HomeTabs = TabNavigator({
@@ -70,6 +73,14 @@ function FlashcardsStatusBar ({backgroundColor, ...props}) {
 }
 
 export default class App extends React.Component {
+
+  componentDidMount() {
+    persistStore(store, {
+      storage: AsyncStorage,
+      whitelist: ['decks']
+    });
+  }
+
   render() {
     return (
       <Provider store={store}>
