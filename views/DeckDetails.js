@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Container, Text } from 'native-base';
 
-
+import {
+  startQuiz
+} from '../ducks/quiz';
 
 class DeckDetails extends React.Component {
 
@@ -10,9 +12,20 @@ class DeckDetails extends React.Component {
     title: navigation.state.params.item.name
   });
 
+  constructor(props) {
+    super(props);
+    this.startQuiz = this.startQuiz.bind(this);
+  }
+
+  startQuiz(deck) {
+    this.props.onStartQuiz(deck);
+    this.props.navigation.navigate('Quiz', { deck })
+  }
+
   render() {
 
     const { navigation, deck } = this.props;
+    const disableQuiz = deck.cards.length <= 0;
 
     return (
       <Container>
@@ -26,7 +39,8 @@ class DeckDetails extends React.Component {
         </Button>
         <Button
           rounded success
-          onPress={() => navigation.navigate('Quiz', { deck })}
+          disabled={disableQuiz}
+          onPress={() => this.startQuiz(deck)}
         >
           <Text>Start Quiz</Text>
         </Button>
@@ -36,6 +50,12 @@ class DeckDetails extends React.Component {
 
 }
 
+
+function mapDispatchToProps (dispatch) {
+  return {
+    onStartQuiz: (deck) => dispatch(startQuiz(deck)),
+  }
+}
 function mapStateToProps (state, ownProps) {
   const { navigation } = ownProps;
   const { item } = navigation.state.params;
@@ -44,4 +64,7 @@ function mapStateToProps (state, ownProps) {
   }
 }
 
-export default connect(mapStateToProps)(DeckDetails);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeckDetails);
