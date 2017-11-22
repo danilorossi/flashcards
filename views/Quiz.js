@@ -45,7 +45,7 @@ class Quiz extends React.Component {
         {finished &&
           <Content>
             <Text>Finished</Text>
-            <Text>{correctAnswers} right / {incorrectAnswers} wrong</Text>
+            <Text>{(correctAnswers/totalCards)*100} ({correctAnswers}/{incorrectAnswers})</Text>
             <Button
               rounded light
               onPress={() => navigation.navigate('Home')}
