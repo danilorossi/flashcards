@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, StatusBar, Alert } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Constants } from 'expo';
@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 
 import { persistStore } from 'redux-persist';
 import { AsyncStorage } from 'react-native';
+
+import { deleteDeck } from './ducks/deck';
 
 import configureStore from './store/configureStore';
 import initialState from './store/initialState';
@@ -16,6 +18,8 @@ import DeckDetails from './views/DeckDetails';
 import Decks from './views/Decks';
 import AddCard from './views/AddCard';
 import Quiz from './views/Quiz';
+
+
 
 // Init redux store with initial state
 const store = configureStore(initialState);
@@ -74,6 +78,33 @@ function FlashcardsStatusBar ({backgroundColor, ...props}) {
 
 export default class App extends React.Component {
 
+  constructor(props) {
+    super(props);
+    // this.deleteDeck = this.deleteDeck.bind(this);
+  }
+
+  deleteDeck(deck) {
+
+    return new Promise((resolve, reject) => {
+      Alert.alert(
+        'Delete deck',
+        `Are you sure you want to delete deck ${deck.name}`,
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Yes',
+            onPress: () => {
+              store.dispatch(deleteDeck(deck));
+              resolve();
+            }
+          },
+        ],
+        { cancelable: false }
+      )
+    })
+
+  }
+
   componentDidMount() {
     persistStore(store, {
       storage: AsyncStorage,
@@ -86,7 +117,8 @@ export default class App extends React.Component {
       <Provider store={store}>
         <View style={{ flex: 1 }}>
           <FlashcardsStatusBar backgroundColor="grey" barStyle="light-content" />
-          <MainNavigator />
+          <MainNavigator
+            screenProps={{ deleteDeck: this.deleteDeck }}/>
         </View>
       </Provider>
     );

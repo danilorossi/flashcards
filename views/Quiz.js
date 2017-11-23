@@ -9,7 +9,9 @@ import {
 } from '../ducks/quiz';
 
 class Quiz extends React.Component {
-
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Quiz'
+  });
   constructor(props) {
     super(props);
     this.goHome = this.goHome.bind(this);
@@ -59,26 +61,25 @@ class Quiz extends React.Component {
       <Container>
         {!finished &&
           <Content>
+
             <Text>Question {questionIndex + 1}/{totalCards}</Text>
             <Text>{currentCard && currentCard.question}</Text>
             <Text>HIDE THIS: {currentCard && currentCard.answer}</Text>
 
-            <Button
-              rounded error
-              onPress={() => this.props.onSubmitAnswer(false)}
-            >
+            <Button rounded danger
+              onPress={() => this.props.onSubmitAnswer(false)}>
               <Text>Incorrect</Text>
             </Button>
-            <Button
-              rounded success
-              onPress={() => this.props.onSubmitAnswer(true)}
-            >
+            <Button rounded success
+              onPress={() => this.props.onSubmitAnswer(true)}>
               <Text>Correct</Text>
             </Button>
+
           </Content>
         }
         {finished &&
           <Content>
+
             <Text>Finished</Text>
             <Text>{((correctAnswers/totalCards)*100).toFixed(2)}% ({correctAnswers}/{incorrectAnswers})</Text>
 

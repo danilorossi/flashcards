@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Container, Text } from 'native-base';
+
+import { Button, Container, Text, Icon } from 'native-base';
 
 import {
   startQuiz
@@ -8,8 +9,14 @@ import {
 
 class DeckDetails extends React.Component {
 
-  static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.item.name
+  static navigationOptions = ({ navigation, screenProps }) => ({
+    title: navigation.state.params.item.name,
+    headerRight: <Button onPress={() => {
+      screenProps
+        .deleteDeck(navigation.state.params.item)
+        .then(() => navigation.navigate('Home'));
+    }} transparent danger><Icon name="trash"/></Button>,
+
   });
 
   constructor(props) {
@@ -25,11 +32,11 @@ class DeckDetails extends React.Component {
   render() {
 
     const { navigation, deck } = this.props;
-    const disableQuiz = deck.cards.length <= 0;
+    const disableQuiz = !deck || deck.cards.length <= 0;
 
     return (
       <Container>
-        <Text>{deck.cards.length} cards</Text>
+        <Text>{deck && deck.cards.length} cards</Text>
 
         <Button
           rounded light

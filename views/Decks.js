@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FlatList } from 'react-native';
-import { Container, Content, Button, Text } from 'native-base';
+import { Container, SwipeRow, Content, Button, Text } from 'native-base';
 
 class Decks extends React.Component {
 // export default function Decks ({ navigation }) {
