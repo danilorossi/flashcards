@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-
+import { NavigationActions } from 'react-navigation';
 import { Button, Container, Text, Icon } from 'native-base';
 
 import {
@@ -14,7 +14,16 @@ class DeckDetails extends React.Component {
     headerRight: <Button onPress={() => {
       screenProps
         .deleteDeck(navigation.state.params.item)
-        .then(() => navigation.navigate('Home'));
+        .then(() => {
+          navigation.dispatch(
+            NavigationActions.reset({
+              index: 0,
+              actions: [
+                NavigationActions.navigate({ routeName: 'Home'}),
+              ]
+            })
+          );
+        });
     }} transparent danger><Icon name="trash"/></Button>,
 
   });

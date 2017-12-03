@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, StatusBar, Alert } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { Constants } from 'expo';
+import { Font, Constants } from 'expo';
 import { Provider } from 'react-redux';
 
 import { persistStore } from 'redux-persist';
@@ -77,6 +77,9 @@ function FlashcardsStatusBar ({backgroundColor, ...props}) {
 }
 
 export default class App extends React.Component {
+  state = {
+    isReady: false
+  };
 
   constructor(props) {
     super(props);
@@ -105,14 +108,33 @@ export default class App extends React.Component {
 
   }
 
-  componentDidMount() {
+  // componentDidMount() {
+  //   persistStore(store, {
+  //     storage: AsyncStorage,
+  //     whitelist: ['decks']
+  //   });
+  // }
+
+  async componentWillMount() {
+
     persistStore(store, {
       storage: AsyncStorage,
       whitelist: ['decks']
     });
+
+    await Font.loadAsync({
+      Roboto: require("native-base/Fonts/Roboto.ttf"),
+      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
+      Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf")
+    });
+
+    this.setState({ isReady: true });
   }
 
   render() {
+    if (!this.state.isReady) {
+      return <Expo.AppLoading />;
+    }
     return (
       <Provider store={store}>
         <View style={{ flex: 1 }}>

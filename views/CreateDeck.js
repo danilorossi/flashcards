@@ -33,11 +33,6 @@ class CreateDeck extends React.Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Body>
-            <Title>New Deck</Title>
-          </Body>
-        </Header>
         <Content>
           <Text>
             What is the title of your new deck?
