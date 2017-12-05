@@ -1,11 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
-import { Button, Container, Text, Icon } from 'native-base';
+import { Button, Container, Content, H1, Text, Icon } from 'native-base';
+import { StyleSheet } from 'react-native';
 
 import {
   startQuiz
 } from '../ducks/quiz';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  button: {
+    margin: '2%',
+  },
+
+  text: {
+
+  }
+})
 
 class DeckDetails extends React.Component {
 
@@ -44,22 +60,23 @@ class DeckDetails extends React.Component {
     const disableQuiz = !deck || deck.cards.length <= 0;
 
     return (
-      <Container>
-        <Text>{deck && deck.cards.length} cards</Text>
+      <Container style={styles.container}>
 
-        <Button
-          rounded light
-          onPress={() => navigation.navigate('AddCard', { deck })}
-        >
-          <Text>Add Card</Text>
-        </Button>
-        <Button
-          rounded success
-          disabled={disableQuiz}
-          onPress={() => this.startQuiz(deck)}
-        >
-          <Text>Start Quiz</Text>
-        </Button>
+          <H1 style={[styles.text, { marginTop: 'auto' }]}>{deck && deck.name}</H1>
+          <Text style={styles.text}>{deck && deck.cards.length} cards</Text>
+
+          <Button style={[styles.button, { marginTop: 'auto' }]}
+            block light
+            onPress={() => navigation.navigate('AddCard', { deck })}>
+            <Text>Add Card</Text>
+          </Button>
+          <Button style={styles.button}
+            block success
+            disabled={disableQuiz}
+            onPress={() => this.startQuiz(deck)}>
+            <Text>Start Quiz</Text>
+          </Button>
+
       </Container>
     )
   }
