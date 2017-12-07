@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Container, Content, Text } from 'native-base';
+import { Button, Container, Content, View, Card, H1, CardItem, Left, Body, Text, Icon } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 
 import {
@@ -12,12 +12,29 @@ class Quiz extends React.Component {
   static navigationOptions = ({ navigation }) => ({
     title: 'Quiz'
   });
+
+  state = {
+    showAnswer: false
+  };
+
   constructor(props) {
     super(props);
     this.goHome = this.goHome.bind(this);
     this.startQuiz = this.startQuiz.bind(this);
+    this.answerOk = this.answerOk.bind(this);
+    this.answerKo = this.answerKo.bind(this);
   }
 
+  answerOk() {
+    // this._deckSwiper._root.swipeRight();
+    this.setState({ showAnswer: false });
+    this.props.onSubmitAnswer(true);
+  }
+  answerKo() {
+    // this._deckSwiper._root.swipeLeft();
+    this.setState({ showAnswer: false });
+    this.props.onSubmitAnswer(false);
+  }
   goHome() {
     const resetAction = NavigationActions.reset({
       index: 0,
@@ -57,27 +74,108 @@ class Quiz extends React.Component {
       navigation
     } = this.props;
 
+    // <Content>
+    //
+    //   <Text>Question {questionIndex + 1}/{totalCards}</Text>
+    //   <Text>{currentCard && currentCard.question}</Text>
+    //   <Text>HIDE THIS: {currentCard && currentCard.answer}</Text>
+    //
+    //   <Button rounded danger
+    //     onPress={() => this.props.onSubmitAnswer(false)}>
+    //     <Text>Incorrect</Text>
+    //   </Button>
+    //   <Button rounded success
+    //     onPress={() => this.props.onSubmitAnswer(true)}>
+    //     <Text>Correct</Text>
+    //   </Button>
+    //
+    // </Content>
+
     return (
-      <Container>
-        {!finished &&
-          <Content>
+        <Container style={{ flex: 1 }}>
 
-            <Text>Question {questionIndex + 1}/{totalCards}</Text>
-            <Text>{currentCard && currentCard.question}</Text>
-            <Text>HIDE THIS: {currentCard && currentCard.answer}</Text>
+          <Content contentContainerStyle={{ flex: 1, justifyContent: 'space-between'  }}>
 
-            <Button rounded danger
-              onPress={() => this.props.onSubmitAnswer(false)}>
-              <Text>Incorrect</Text>
-            </Button>
-            <Button rounded success
-              onPress={() => this.props.onSubmitAnswer(true)}>
-              <Text>Correct</Text>
-            </Button>
+            <View style={{ flex: 3 }}>
+              {!finished &&
+                <Card>
+                  <CardItem>
+                    <Left>
+                      <Body>
+                        <Text>Card {questionIndex + 1} of {totalCards}</Text>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                  <CardItem style={{ height: 100, alignSelf: 'center' }}>
+                    <H1>{currentCard.question}</H1>
+                  </CardItem>
+                  <CardItem style={{ alignSelf: 'center' }}>
+                    <Button small bordered primary onPress={() => this.setState({ showAnswer: !this.state.showAnswer })}>
+                      <Text>{ this.state.showAnswer ? 'Hide' : 'Show' } answer</Text>
+                    </Button>
+                  </CardItem>
 
-          </Content>
-        }
-        {finished &&
+                  {this.state.showAnswer &&
+                    <CardItem style={{ alignSelf: 'center' }}>
+                      <Text>{currentCard.answer}</Text>
+                    </CardItem>
+                  }
+
+                </Card>
+              }
+              {finished &&
+                <Card>
+
+                  <CardItem>
+                    <Left>
+                      <Body>
+                        <Text>Quiz finished!</Text>
+                      </Body>
+                    </Left>
+                  </CardItem>
+
+                  <CardItem style={{ height: 100, alignSelf: 'center' }}>
+                    <H1>{((correctAnswers/totalCards)*100).toFixed(2)}%</H1>
+                  </CardItem>
+
+                  <CardItem style={{ alignSelf: 'center' }}>
+                    <Text>{`(${correctAnswers} of ${totalCards})`}</Text>
+                  </CardItem>
+
+                </Card>
+              }
+            </View>
+
+
+              {!finished &&
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', margin: '5%' }}>
+                 <Button iconLeft danger onPress={() => this.answerKo()} style={{alignSelf: 'flex-end'}}>
+                   <Icon name="arrow-back" />
+                   <Text>Incorrect</Text>
+                 </Button>
+                 <Button iconRight success onPress={() => this.answerOk()} style={{alignSelf: 'flex-end'}}>
+
+                   <Text>Correct</Text>
+
+                   <Icon name="arrow-forward" />
+                 </Button>
+                </View>
+              }
+
+              {finished &&
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', margin: '5%' }}>
+                  <Button success onPress={() => this.goHome()} style={{alignSelf: 'flex-end'}}>
+                    <Text>Home</Text>
+                  </Button>
+                  <Button onPress={() => this.startQuiz(deck)} style={{alignSelf: 'flex-end'}}>
+                    <Text>Restart Quiz</Text>
+                  </Button>
+                </View>
+              }
+
+         </Content>
+
+        {/*finished &&
           <Content>
 
             <Text>Finished</Text>
@@ -94,7 +192,7 @@ class Quiz extends React.Component {
             </Button>
 
           </Content>
-        }
+        */}
       </Container>
     )
   }
