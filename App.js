@@ -1,5 +1,5 @@
 import React from 'react';
-import { Root } from 'native-base';
+import { Root, StyleProvider } from 'native-base';
 import { StyleSheet, Text, View, StatusBar, Alert } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -14,6 +14,7 @@ import { deleteDeck } from './ducks/deck';
 import configureStore from './store/configureStore';
 import initialState from './store/initialState';
 
+import * as Color from './globals/colors';
 import CreateDeck from './views/CreateDeck';
 import DeckDetails from './views/DeckDetails';
 import Decks from './views/Decks';
@@ -38,19 +39,29 @@ const HomeTabs = TabNavigator({
     screen: Decks,
     navigationOptions: {
       tabBarLabel: 'Decks',
-      tabBarIcon: () => <MaterialCommunityIcons name='cards' size={30}/>
+      tabBarIcon: () => <MaterialCommunityIcons name='cards' color={Color.DEFAULT_TEXT} size={30}/>
     }
   },
   CreateDeck: {
     screen: CreateDeck,
     navigationOptions: {
       tabBarLabel: 'Create Deck',
-      tabBarIcon: () => <MaterialCommunityIcons name='plus' size={30}/>
+      tabBarIcon: () => <MaterialCommunityIcons name='plus' color={Color.DEFAULT_TEXT} size={30}/>
     }
   }
 }, {
   navigationOptions: {
     header: null
+  },
+  tabBarOptions: {
+    showIcon: true,
+    style: {
+      backgroundColor: Color.PRIMARY
+    },
+    labelStyle: {
+      color: Color.DEFAULT_TEXT,
+      fontSize: 13
+    }
   }
 });
 
@@ -66,6 +77,16 @@ const MainNavigator = StackNavigator({
   },
   Quiz: {
     screen: Quiz
+  }
+}, {
+  navigationOptions: {
+    headerStyle: {
+      backgroundColor: Color.PRIMARY
+    },
+    headerTitleStyle: {
+      color: Color.DEFAULT_TEXT
+    },
+    headerTintColor: Color.DEFAULT_TEXT
   }
 });
 
@@ -140,7 +161,7 @@ export default class App extends React.Component {
       <Provider store={store}>
         <Root>
           <View style={{ flex: 1 }}>
-            <FlashcardsStatusBar backgroundColor="grey" barStyle="light-content" />
+            <FlashcardsStatusBar backgroundColor={Color.PRIMARY} barStyle="light-content" />
             <MainNavigator
               screenProps={{ deleteDeck: this.deleteDeck }}/>
           </View>

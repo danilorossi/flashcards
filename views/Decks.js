@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, CardItem, Body, Container, SwipeRow, Content, Button, Text } from 'native-base';
+import * as Color from '../globals/colors';
 
 const styles = StyleSheet.create({
   cardButton: {
@@ -30,7 +31,7 @@ class Decks extends React.Component {
 
     return (
 
-      <Container>
+      <Container style={{ backgroundColor: Color.BACKGROUND }}>
 
         <Content>
 

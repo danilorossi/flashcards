@@ -72,9 +72,9 @@ class Quiz extends Component {
 
     setTimeout(() => Toast.show({
         text: `New question added to ${deck.name}!`,
-        position: 'top',
+        position: 'bottom',
         type: 'success',
-        duration: '2000'
+        duration: 2000
       }),
       500
     );

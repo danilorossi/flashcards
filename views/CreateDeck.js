@@ -56,9 +56,9 @@ class CreateDeck extends React.Component {
     this.props.navigation.navigate('Decks');
     setTimeout(() => Toast.show({
         text: `Deck "${deckName}" succesfully created!`,
-        position: 'top',
+        position: 'bottom',
         type: 'success',
-        duration: '2000'
+        duration: 2000
       }),
       500
     );

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { NavigationActions } from 'react-navigation';
 import { Button, Container, Content, H1, Text, Icon } from 'native-base';
 import { StyleSheet } from 'react-native';
+import * as Color from '../globals/colors';
 
 import {
   startQuiz
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
 
 class DeckDetails extends React.Component {
 
+
   static navigationOptions = ({ navigation, screenProps }) => ({
     title: navigation.state.params.item.name,
     headerRight: <Button onPress={() => {
@@ -40,7 +42,7 @@ class DeckDetails extends React.Component {
             })
           );
         });
-    }} transparent danger><Icon name="trash"/></Button>,
+    }} transparent><Icon style={{ color: Color.DANGER }} name="md-trash"/></Button>,
 
   });
 
