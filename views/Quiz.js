@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { Button, Container, Content, View, Card, H1, H3, CardItem, Left, Body, Text, Icon } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 import * as Color from '../globals/colors';
+import {
+  clearLocalNotification,
+  setLocalNotification
+} from '../utils/notifications';
 
 import {
   startQuiz,
@@ -58,7 +62,9 @@ class Quiz extends React.Component {
       ]
     });
 
-    this.props.navigation.dispatch(resetAction)
+    clearLocalNotification().then(setLocalNotification);
+
+    this.props.navigation.dispatch(resetAction);
 
   }
 

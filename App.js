@@ -14,6 +14,8 @@ import { deleteDeck } from './ducks/deck';
 import configureStore from './store/configureStore';
 import initialState from './store/initialState';
 
+import { setLocalNotification } from './utils/notifications';
+
 import * as Color from './globals/colors';
 import CreateDeck from './views/CreateDeck';
 import DeckDetails from './views/DeckDetails';
@@ -98,6 +100,7 @@ function FlashcardsStatusBar ({backgroundColor, ...props}) {
   )
 }
 
+
 export default class App extends React.Component {
   state = {
     isReady: false
@@ -138,12 +141,9 @@ export default class App extends React.Component {
 
   }
 
-  // componentDidMount() {
-  //   persistStore(store, {
-  //     storage: AsyncStorage,
-  //     whitelist: ['decks']
-  //   });
-  // }
+  componentDidMount() {
+    setLocalNotification();
+  }
 
   async componentWillMount() {
 
