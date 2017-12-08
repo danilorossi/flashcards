@@ -1,4 +1,5 @@
 import React from 'react';
+import { Root } from 'native-base';
 import { StyleSheet, Text, View, StatusBar, Alert } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -137,11 +138,13 @@ export default class App extends React.Component {
     }
     return (
       <Provider store={store}>
-        <View style={{ flex: 1 }}>
-          <FlashcardsStatusBar backgroundColor="grey" barStyle="light-content" />
-          <MainNavigator
-            screenProps={{ deleteDeck: this.deleteDeck }}/>
-        </View>
+        <Root>
+          <View style={{ flex: 1 }}>
+            <FlashcardsStatusBar backgroundColor="grey" barStyle="light-content" />
+            <MainNavigator
+              screenProps={{ deleteDeck: this.deleteDeck }}/>
+          </View>
+        </Root>
       </Provider>
     );
   }

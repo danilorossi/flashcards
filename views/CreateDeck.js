@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
 
-import { Container, Button, Header, Body, Text, Title, Content, Form, Item, Input, Label } from 'native-base';
+import { Toast, Container, Button, Header, Body, Text, Title, Content, Form, Item, Input, Label } from 'native-base';
 
 import {
   createDeck
@@ -51,8 +51,18 @@ class CreateDeck extends React.Component {
 
   onCreatePressed() {
     this.props.onCreateDeck(this.state.text);
+    const deckName = this.state.text;
     this.setState({ text: '' });
     this.props.navigation.navigate('Decks');
+    setTimeout(() => Toast.show({
+        text: `Deck "${deckName}" succesfully created!`,
+        position: 'top',
+        type: 'success',
+        duration: '2000'
+      }),
+      500
+    );
+
   }
 
   render() {
@@ -62,12 +72,14 @@ class CreateDeck extends React.Component {
           <Text style={styles.formTitle}>
             What is the title of your new deck?
           </Text>
+
           <Form style={styles.formInput}>
             <Item floatingLabel>
               <Label>Deck title</Label>
               <Input onChangeText={this.onChangeHandler} value={this.state.text}/>
             </Item>
           </Form>
+
           <Button
             style={styles.button}
             full

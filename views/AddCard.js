@@ -1,10 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Button, Header, Body, Text, Title, Content, Form, Item, Input, Label } from 'native-base';
+import { StyleSheet } from 'react-native';
+import { Container, Toast, Button, Header, Body, Text, Title, Content, Form, Item, Input, Label } from 'native-base';
 
 import {
   addCard
 } from '../ducks/deck';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '2%',
+  },
+  containerContent: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  formTitle: {
+    marginTop: 20,
+    marginBottom: 'auto'
+  },
+  formInput: {
+    marginBottom: 20
+  },
+  button: {
+    marginBottom: 'auto'
+  }
+})
 
 class Quiz extends Component {
 
@@ -45,6 +69,15 @@ class Quiz extends Component {
     });
 
     this.props.navigation.goBack();
+
+    setTimeout(() => Toast.show({
+        text: `New question added to ${deck.name}!`,
+        position: 'top',
+        type: 'success',
+        duration: '2000'
+      }),
+      500
+    );
   }
 
   render() {
@@ -56,12 +89,12 @@ class Quiz extends Component {
       question.trim().length <= 0;
 
     return (
-      <Container>
-        <Content>
-          <Text>
+      <Container style={styles.container}>
+        <Content contentContainerStyle={styles.containerContent}>
+          <Text style={styles.formTitle}>
             Create a new question
           </Text>
-          <Form>
+          <Form style={styles.formInput}>
             <Item floatingLabel>
               <Label>Question</Label>
               <Input onChangeText={this.onChangeQuestionHandler} value={this.state.question}/>
@@ -72,6 +105,7 @@ class Quiz extends Component {
             </Item>
           </Form>
           <Button
+            style={styles.button}
             full
             success
             disabled={submitDisabled}

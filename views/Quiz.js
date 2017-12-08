@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Container, Content, View, Card, H1, CardItem, Left, Body, Text, Icon } from 'native-base';
+import { Button, Container, Content, View, Card, H1, H3, CardItem, Left, Body, Text, Icon } from 'native-base';
 import { NavigationActions } from 'react-navigation';
 
 import {
@@ -117,7 +117,7 @@ class Quiz extends React.Component {
 
                   {this.state.showAnswer &&
                     <CardItem style={{ alignSelf: 'center' }}>
-                      <Text>{currentCard.answer}</Text>
+                      <H3>{currentCard.answer}</H3>
                     </CardItem>
                   }
 
