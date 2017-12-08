@@ -14,7 +14,7 @@ Clone the repository and run the `npm install` command.
 
 Check the original [Create Native App guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md) for more details.
 
-# Notes
+# Notes
 
 This app has been tested on:
 * the iOS simulator on a Mac laptop
