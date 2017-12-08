@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { Toast, Container, Button, Header, Body, Text, Title, Content, Form, Item, Input, Label } from 'native-base';
 import * as Color from '../globals/colors';
 
@@ -53,16 +54,27 @@ class CreateDeck extends React.Component {
     this.props.onCreateDeck(this.state.text);
     const deckName = this.state.text;
     this.setState({ text: '' });
-    this.props.navigation.navigate('Decks');
+    // this.props.navigation.navigate('Decks');
     setTimeout(() => Toast.show({
         text: `Deck "${deckName}" succesfully created!`,
         position: 'bottom',
-        type: 'success',
         duration: 2000
       }),
       500
     );
+  }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.decks.length === this.props.decks.length + 1) {
+      const resetAction = NavigationActions.reset({
+        index: 1,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Home' }),
+          NavigationActions.navigate({ routeName: 'DeckDetails', params: { item: nextProps.decks[0] } }), // deck
+        ]
+      });
+      this.props.navigation.dispatch(resetAction);
+    }
   }
 
   render() {
@@ -104,6 +116,13 @@ function mapDispatchToProps (dispatch) {
   }
 }
 
-export default connect (null, mapDispatchToProps)(CreateDeck);
+function mapStateToProps (state) {
+  return {
+    decks: state.decks
+  }
+}
+
+
+export default connect (mapStateToProps, mapDispatchToProps)(CreateDeck);
 
 // export default CreateDeck;

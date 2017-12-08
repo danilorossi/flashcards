@@ -20,8 +20,22 @@ const styles = StyleSheet.create({
 })
 
 class Decks extends React.Component {
-// export default function Decks ({ navigation }) {
-
+// // export default function Decks ({ navigation }) {
+//
+//   componentDidMount() {
+//
+//     const {
+//       navigation,
+//       decks
+//     } = this.props;
+//
+//     const newlyCreatedDeck = this.props.decks[0];
+//     console.log(this.props.screenProps)
+//     console.log(this.screenProps)
+//     if(navigation.state.params && navigation.state.params.redirectTo) {
+//       console.log(newlyCreatedDeck);
+//     }
+//   }
   render() {
 
     const {
@@ -42,9 +56,6 @@ class Decks extends React.Component {
               keyExtractor={item => item.id}
               renderItem={({item}) => (
 
-                // <Button full success onPress={() => navigation.navigate('DeckDetails', { item })}>
-                //   <Text>{ item.name } ({ item.cards.length })</Text>
-                // </Button>
                 <TouchableOpacity style={styles.cardButton} onPress={() => navigation.navigate('DeckDetails', { item })}>
                   <Card style={styles.card}>
 

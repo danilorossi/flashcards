@@ -126,7 +126,6 @@ export default class App extends React.Component {
               setTimeout(() => Toast.show({
                   text: `Deck "${deck.name}" succesfully deleted.`,
                   position: 'bottom',
-                  type: 'success',
                   duration: 2000
                 }),
                 500

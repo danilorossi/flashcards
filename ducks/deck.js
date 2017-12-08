@@ -14,8 +14,12 @@ export default function reducer(state = [], action = {}) {
       return state.concat({
         id: uuid.v4(),
         name: action.name,
-        cards: []
-      });
+        cards: [],
+        ts: Date.now()
+      })
+      .sort((a,b) =>
+        ((a.ts > b.ts) ? -1 : ((b.ts > a.ts) ? 1 : 0))
+      );
 
     case DELETE_DECK:
       return state.filter((deck) => deck.id !== action.deck.id);
