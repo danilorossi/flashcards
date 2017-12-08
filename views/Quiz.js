@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Container, Content, View, Card, H1, H3, CardItem, Left, Body, Text, Icon } from 'native-base';
 import { NavigationActions } from 'react-navigation';
+import * as Color from '../globals/colors';
 
 import {
   startQuiz,
@@ -149,11 +150,11 @@ class Quiz extends React.Component {
 
               {!finished &&
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', margin: '5%' }}>
-                 <Button iconLeft danger onPress={() => this.answerKo()} style={{alignSelf: 'flex-end'}}>
+                 <Button iconLeft onPress={() => this.answerKo()} style={{alignSelf: 'flex-end', backgroundColor: Color.DANGER }}>
                    <Icon name="arrow-back" />
                    <Text>Incorrect</Text>
                  </Button>
-                 <Button iconRight success onPress={() => this.answerOk()} style={{alignSelf: 'flex-end'}}>
+                 <Button iconRight success onPress={() => this.answerOk()} style={{alignSelf: 'flex-end', backgroundColor: Color.SUCCESS_BUTTON }}>
 
                    <Text>Correct</Text>
 
@@ -164,7 +165,7 @@ class Quiz extends React.Component {
 
               {finished &&
                 <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', margin: '5%' }}>
-                  <Button success onPress={() => this.goHome()} style={{alignSelf: 'flex-end'}}>
+                  <Button success onPress={() => this.goHome()} style={{alignSelf: 'flex-end', backgroundColor: Color.SUCCESS_BUTTON }}>
                     <Text>Home</Text>
                   </Button>
                   <Button onPress={() => this.startQuiz(deck)} style={{alignSelf: 'flex-end'}}>

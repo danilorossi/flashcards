@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
 import { Container, Toast, Button, Header, Body, Text, Title, Content, Form, Item, Input, Label } from 'native-base';
+import * as Color from '../globals/colors';
 
 import {
   addCard
@@ -105,7 +106,7 @@ class Quiz extends Component {
             </Item>
           </Form>
           <Button
-            style={styles.button}
+            style={[styles.button, { backgroundColor: submitDisabled ? Color.DISABLED_BUTTON : Color.SUCCESS_BUTTON }]}
             full
             success
             disabled={submitDisabled}

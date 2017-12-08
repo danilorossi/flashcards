@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   button: {
-    margin: '2%',
+    margin: '2%'
   },
 
   text: {
@@ -72,7 +72,7 @@ class DeckDetails extends React.Component {
             onPress={() => navigation.navigate('AddCard', { deck })}>
             <Text>Add Card</Text>
           </Button>
-          <Button style={styles.button}
+          <Button style={[styles.button, { backgroundColor: disableQuiz ? Color.DISABLED_BUTTON : Color.SUCCESS_BUTTON }]}
             block success
             disabled={disableQuiz}
             onPress={() => this.startQuiz(deck)}>

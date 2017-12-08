@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet } from 'react-native';
-
 import { Toast, Container, Button, Header, Body, Text, Title, Content, Form, Item, Input, Label } from 'native-base';
+import * as Color from '../globals/colors';
 
 import {
   createDeck
@@ -66,6 +66,9 @@ class CreateDeck extends React.Component {
   }
 
   render() {
+
+    const submitDisabled = this.state.text.trim().length <= 0;
+
     return (
       <Container style={styles.container}>
         <Content contentContainerStyle={styles.containerContent}>
@@ -81,10 +84,10 @@ class CreateDeck extends React.Component {
           </Form>
 
           <Button
-            style={styles.button}
+            style={[styles.button, { backgroundColor: submitDisabled ? Color.DISABLED_BUTTON : Color.SUCCESS_BUTTON }]}
             full
             success
-            disabled={this.state.text.trim().length <= 0}
+            disabled={submitDisabled}
             onPress={this.onCreatePressed}>
             <Text>Create</Text>
           </Button>

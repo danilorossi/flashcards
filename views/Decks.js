@@ -31,7 +31,7 @@ class Decks extends React.Component {
 
     return (
 
-      <Container style={{ backgroundColor: Color.BACKGROUND }}>
+      <Container>
 
         <Content>
 

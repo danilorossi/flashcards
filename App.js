@@ -1,5 +1,5 @@
 import React from 'react';
-import { Root, StyleProvider } from 'native-base';
+import { Root, StyleProvider, Toast } from 'native-base';
 import { StyleSheet, Text, View, StatusBar, Alert } from 'react-native';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -120,6 +120,14 @@ export default class App extends React.Component {
             text: 'Yes',
             onPress: () => {
               store.dispatch(deleteDeck(deck));
+              setTimeout(() => Toast.show({
+                  text: `Deck "${deck.name}" succesfully deleted.`,
+                  position: 'bottom',
+                  type: 'success',
+                  duration: 2000
+                }),
+                500
+              );
               resolve();
             }
           },
